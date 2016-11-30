@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Facebook Reaction Poll</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            position: relative;
+            font-size: 32px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-size: 100%;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+        }
+
+        .container {
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1280px;
+            height: 720px;
+            overflow: hidden;
+        }
+
+        .counter {
+            display: inline-block;
+            position: relative;
+            cursor: move;
+        }
+
+        .properties {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 120%;
+            width: 120px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ddd;
+            padding: 8px;
+        }
+
+        .properties input {
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 8px;
+            padding: 4px 0;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+        }
+
+        .properties button {
+            width: 100%;
+            color: #fff;
+            background: #4CAF50;
+            border: 0;
+            text-align: center;
+            padding: 4px 0;
+            cursor: pointer;
+            border-radius: 2px;
+        }
+
+        .properties button:focus,
+        .properties input:focus {
+            outline: 0;
+        }
+
+        .show-properties .properties {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="counter" title="Like">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Like" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="like">Like</p>
+    </div>
+    <div class="counter" title="Love">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Love" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="love">Love</p>
+    </div>
+    <div class="counter" title="Haha">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Haha" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="haha">Haha</p>
+    </div>
+    <div class="counter" title="Wow">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Wow" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="wow">Wow</p>
+    </div>
+    <div class="counter" title="Sad">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Sad" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="sad">Sad</p>
+    </div>
+    <div class="counter" title="Angry">
+        <div class="properties">
+            <input type="number" value="16" class="font-size" placeholder="Font Size">
+            <input type="text" value="#2e2e2e" class="color" placeholder="Color">
+            <input type="text" value="Angry" class="value" placeholder="Value">
+            <button>Done</button>
+        </div>
+        <p class="counter-value" style="font-size: 16px; color: #2e2e2e" id="angry">Angry</p>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('.counter').draggable({
+            containment: '.container',
+            cursor: 'move'
+        });
+
+        $('.counter').dblclick(function(){
+            $(this).addClass('show-properties');
+        });
+
+        $('.properties button').click(function(){
+            $(this).parents('.counter').removeClass('show-properties');
+        });
+
+        $('.font-size').on('change keyup', function(){
+            $(this).parents('.counter').find('.counter-value').css({'font-size' : $(this).val() + 'px'});
+        });
+
+        $('.color').on('change keyup', function(){
+            $(this).parents('.counter').find('.counter-value').css({'color' : $(this).val()});
+        });
+
+        $('.value').on('change keyup', function(){
+            $(this).parents('.counter').find('.counter-value').text($(this).val());
+        });
+
+    });
+</script>
+<script>
+    $(document).ready(function(){
+
+        /** Script Settings **/
+        var accessToken = 'PUT_YOUR_ACCESS_TOKEN_HERE',
+                postID = 'PUT_YOUR_POST_ID_HERE';
+
+        /** Do not change anything below this **/
+        var url,
+                fields = '',
+                shareCounter = false;
+
+        function updateCounter() {
+            $.getJSON(url, function(response){
+                $('#like').text(response.reaction_like.summary.total_count);
+                $('#love').text(response.reaction_love.summary.total_count);
+                $('#haha').text(response.reaction_haha.summary.total_count);
+                $('#wow').text(response.reaction_wow.summary.total_count);
+                $('#sad').text(response.reaction_sad.summary.total_count);
+                $('#angry').text(response.reaction_angry.summary.total_count);
+
+            })
+                    .fail(function(data){
+                        response = JSON.parse(data.responseText);
+                        alert('Error: ' + response.error.message);
+                        clearInterval(interval);
+                    });
+        }
+
+        function generateURL() {
+            url = 'https://graph.facebook.com/v2.8/' + postID + '?fields=from,' + fields;
+
+            url +='reactions.type(LIKE).limit(0).summary(total_count).as(reaction_like),';
+            url +='reactions.type(LOVE).limit(0).summary(total_count).as(reaction_love),';
+            url +='reactions.type(HAHA).limit(0).summary(total_count).as(reaction_haha),';
+            url +='reactions.type(WOW).limit(0).summary(total_count).as(reaction_wow),';
+            url +='reactions.type(SAD).limit(0).summary(total_count).as(reaction_sad),';
+            url +='reactions.type(ANGRY).limit(0).summary(total_count).as(reaction_angry),';
+
+            url = url.substring(0, url.length - 1);
+            url += '&access_token=' + accessToken;
+        }
+        generateURL();
+        updateCounter();
+        var interval = setInterval(updateCounter, 5000);
+    });
+</script></body>
+</html>
